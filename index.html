@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>付林晓 · 精算 · 金融 · 数据分析</title>
+<meta name="description" content="付林晓的个人主页 — 复旦大学经济学院研究生，本科毕业于对外经济贸易大学，专注数据分析与计量研究。">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230071e3'/%3E%3Ctext x='32' y='42' font-size='30' font-weight='700' text-anchor='middle' fill='%23fff' font-family='PingFang SC, sans-serif'%3E付%3C/text%3E%3C/svg%3E">
+<style>
+:root{
+  --bg:#ffffff;
+  --panel:#f5f5f7;
+  --text:#1d1d1f;
+  --text-2:#6e6e73;
+  --text-3:#86868b;
+  --accent:#0071e3;
+  --accent-soft:rgba(0,113,227,.08);
+  --line:rgba(0,0,0,.08);
+  --card:#ffffff;
+  --radius:24px;
+  --radius-sm:14px;
+  --shadow:0 4px 24px rgba(0,0,0,.06);
+  --shadow-lg:0 18px 48px rgba(0,0,0,.1);
+  --nav-h:52px;
+  --font:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","Helvetica Neue","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:calc(var(--nav-h) + 8px)}
+body{font-family:var(--font);color:var(--text);background:var(--bg);-webkit-font-smoothing:antialiased;line-height:1.6;font-size:17px}
+img{display:block;max-width:100%}
+a{color:var(--accent);text-decoration:none}
+::selection{background:rgba(0,113,227,.18)}
+
+/* ===== 顶部导航 ===== */
+.nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  height:var(--nav-h);
+  display:flex;align-items:center;justify-content:center;
+  background:rgba(255,255,255,.78);
+  -webkit-backdrop-filter:saturate(180%) blur(20px);
+  backdrop-filter:saturate(180%) blur(20px);
+  border-bottom:1px solid rgba(0,0,0,.06);
+}
+.nav-inner{width:100%;max-width:1060px;padding:0 22px;display:flex;align-items:center;justify-content:space-between}
+.nav-logo{font-size:16px;font-weight:600;color:var(--text);letter-spacing:.01em;display:flex;align-items:center;gap:10px;cursor:pointer}
+.nav-logo .dot{width:8px;height:8px;border-radius:50%;background:var(--accent);display:inline-block}
+.nav-links{display:flex;gap:28px;list-style:none}
+.nav-links a{color:rgba(29,29,31,.78);font-size:13px;font-weight:400;transition:color .2s}
+.nav-links a:hover{color:var(--accent)}
+.nav-burger{display:none;background:none;border:0;cursor:pointer;width:40px;height:40px;padding:10px;position:relative}
+.nav-burger span{display:block;height:1.5px;width:20px;background:var(--text);margin:4px auto;transition:.25s}
+.nav.open .nav-burger span:nth-child(1){transform:translateY(5.5px) rotate(45deg)}
+.nav.open .nav-burger span:nth-child(2){opacity:0}
+.nav.open .nav-burger span:nth-child(3){transform:translateY(-5.5px) rotate(-45deg)}
+@media(max-width:860px){
+  .nav-links{position:fixed;top:var(--nav-h);left:0;right:0;flex-direction:column;gap:0;background:rgba(255,255,255,.97);-webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px);padding:10px 0;display:none;border-bottom:1px solid var(--line)}
+  .nav.open .nav-links{display:flex}
+  .nav-links a{display:block;padding:13px 26px;font-size:15px;border-bottom:1px solid var(--line)}
+  .nav-burger{display:block}
+}
+
+/* ===== 通用区块 ===== */
+.section{padding:90px 0;position:relative}
+.wrap{width:100%;max-width:1060px;margin:0 auto;padding:0 22px}
+.section-head{margin-bottom:44px}
+.section-eyebrow{font-size:13px;font-weight:600;color:var(--accent);letter-spacing:.06em;text-transform:uppercase;margin-bottom:10px}
+.section-title{font-size:clamp(30px,4.4vw,44px);font-weight:700;letter-spacing:-.015em;line-height:1.15}
+.section-sub{font-size:17px;color:var(--text-2);margin-top:12px;max-width:680px}
+
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .7s cubic-bezier(.22,1,.36,1),transform .7s cubic-bezier(.22,1,.36,1)}
+.reveal.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .reveal{opacity:1;transform:none;transition:none}
+}
+
+/* ===== Hero（白色科技感） ===== */
+.hero{
+  background:var(--bg);color:var(--text);min-height:100vh;
+  display:flex;align-items:center;position:relative;overflow:hidden;
+  padding:calc(var(--nav-h) + 40px) 0 80px;
+}
+.hero-bg{position:absolute;inset:0;pointer-events:none}
+.hero-bg .grid{
+  position:absolute;inset:0;
+  background-image:linear-gradient(rgba(0,0,0,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(0,0,0,.04) 1px,transparent 1px);
+  background-size:56px 56px;
+  -webkit-mask-image:radial-gradient(ellipse 90% 80% at 70% 40%,#000 25%,transparent 75%);
+  mask-image:radial-gradient(ellipse 90% 80% at 70% 40%,#000 25%,transparent 75%);
+}
+.hero-bg .glow{position:absolute;border-radius:50%;filter:blur(90px)}
+.hero-bg .glow-1{width:520px;height:520px;right:-80px;top:-120px;background:radial-gradient(circle,rgba(0,113,227,.16),transparent 65%)}
+.hero-bg .glow-2{width:420px;height:420px;left:-140px;bottom:-160px;background:radial-gradient(circle,rgba(88,86,214,.12),transparent 65%)}
+.hero-inner{position:relative;z-index:2;display:grid;grid-template-columns:1.35fr .8fr;gap:56px;align-items:center}
+.hero-kicker{font-size:15px;color:var(--accent);font-weight:600;letter-spacing:.04em;margin-bottom:18px;display:flex;align-items:center;gap:10px}
+.hero-kicker::before{content:"";width:26px;height:1px;background:var(--accent);display:inline-block}
+.hero h1{font-size:clamp(52px,8.5vw,96px);font-weight:700;letter-spacing:-.03em;line-height:1.02;margin-bottom:10px}
+.hero-tags{display:flex;flex-wrap:wrap;gap:10px;margin:22px 0 26px}
+.hero-tags span{font-size:14px;color:var(--text-2);border:1px solid var(--line);border-radius:999px;padding:7px 16px;background:rgba(255,255,255,.7)}
+.hero-desc{font-size:19px;line-height:1.75;color:var(--text-2);max-width:520px;margin-bottom:30px}
+.hero-cta{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:26px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:980px;padding:13px 28px;font-size:15px;font-weight:600;cursor:pointer;transition:all .25s;border:0}
+.btn-primary{background:var(--accent);color:#fff}
+.btn-primary:hover{background:#0077ed;transform:scale(1.02)}
+.btn-ghost{background:transparent;color:var(--text);border:1px solid rgba(0,0,0,.22)}
+.btn-ghost:hover{background:var(--panel);border-color:rgba(0,0,0,.4)}
+.hero-contact{display:flex;flex-wrap:wrap;gap:22px;font-size:15px}
+.hero-contact a{display:inline-flex;align-items:center;gap:8px;color:var(--text-2);transition:color .25s;font-variant-numeric:tabular-nums}
+.hero-contact a:hover{color:var(--accent)}
+.hero-contact svg{width:17px;height:17px;stroke:var(--accent);flex:none}
+.hero-portrait{position:relative;justify-self:center}
+.hero-portrait .frame{
+  width:min(340px,72vw);aspect-ratio:5/6;border-radius:28px;overflow:hidden;
+  background:var(--panel);
+  border:1px solid var(--line);
+  box-shadow:var(--shadow-lg),0 0 0 1px rgba(0,113,227,.1);
+  position:relative;
+}
+.hero-portrait img{width:100%;height:100%;object-fit:cover}
+.hero-portrait .ring{
+  position:absolute;inset:-14px;border-radius:36px;
+  border:1px solid rgba(0,113,227,.35);
+  -webkit-mask-image:linear-gradient(135deg,transparent 30%,#000 60%,transparent 85%);
+  mask-image:linear-gradient(135deg,transparent 30%,#000 60%,transparent 85%);
+}
+@media(max-width:900px){
+  .hero{padding-top:calc(var(--nav-h) + 60px)}
+  .hero-inner{grid-template-columns:1fr;gap:44px}
+  .hero-portrait{order:-1}
+  .hero-portrait .frame{width:min(240px,64vw)}
+}
+
+/* ===== 数字条 ===== */
+.stats{background:var(--bg);border-top:1px solid var(--line);padding:64px 0}
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:32px;text-align:center}
+.stat .num{font-size:clamp(34px,4.6vw,52px);font-weight:700;letter-spacing:-.02em;color:var(--text);line-height:1.1;font-variant-numeric:tabular-nums}
+.stat .num small{font-size:.55em;font-weight:400;color:var(--text-3)}
+.stat .lbl{margin-top:8px;font-size:14px;color:var(--text-2)}
+@media(max-width:760px){.stats-grid{grid-template-columns:repeat(2,1fr);gap:36px 20px}}
+
+/* ===== 关于 ===== */
+.about{background:var(--panel)}
+.about-grid{display:grid;grid-template-columns:1.25fr .75fr;gap:56px;align-items:start}
+.about p{font-size:17px;line-height:1.85;color:var(--text-2);margin-bottom:18px}
+.about p strong{color:var(--text);font-weight:600}
+.about-card{background:var(--card);border-radius:var(--radius);padding:30px;box-shadow:var(--shadow);border:1px solid var(--line)}
+.about-card h3{font-size:15px;font-weight:600;color:var(--text-2);letter-spacing:.04em;margin-bottom:18px}
+.about-card .row{display:flex;justify-content:space-between;gap:16px;padding:13px 0;border-bottom:1px solid var(--line);font-size:15px}
+.about-card .row:last-child{border-bottom:0}
+.about-card .row .k{color:var(--text-2)}
+.about-card .row .v{font-weight:600;text-align:right}
+@media(max-width:900px){.about-grid{grid-template-columns:1fr}}
+
+/* ===== 教育（时间轴 + 校门照） ===== */
+.education{background:var(--bg)}
+.timeline{display:grid;grid-template-columns:minmax(150px,210px) 24px 1fr;column-gap:18px;row-gap:40px}
+.tl-item{display:contents}
+.tl-time{text-align:right;padding-top:6px;font-size:15px;color:var(--text-2);font-variant-numeric:tabular-nums;font-weight:500}
+.tl-axis{position:relative;display:flex;justify-content:center}
+.tl-axis::before{content:"";position:absolute;top:-40px;bottom:-40px;width:1px;background:linear-gradient(to bottom,transparent,var(--line) 8%,var(--line) 92%,transparent)}
+.tl-item:first-child .tl-axis::before{top:0}
+.tl-item:last-child .tl-axis::before{bottom:50%}
+.tl-dot{width:13px;height:13px;border-radius:50%;background:var(--accent);border:3px solid #fff;box-shadow:0 0 0 2px var(--accent);align-self:center;position:relative;z-index:2}
+.tl-card{background:var(--panel);border-radius:var(--radius-sm);padding:24px 26px;border:1px solid var(--line);transition:box-shadow .3s,transform .3s}
+.tl-card:hover{box-shadow:var(--shadow)}
+.tl-card h3{font-size:19px;font-weight:700;letter-spacing:-.01em}
+.tl-card .sub{font-size:14px;color:var(--accent);font-weight:600;margin-top:3px}
+.tl-card .meta{font-size:13px;color:var(--text-2);margin-top:8px}
+.tl-card .tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.tl-card .tags span{font-size:12.5px;color:var(--text-2);background:var(--card);border:1px solid var(--line);border-radius:999px;padding:4px 12px}
+.tl-photo{margin-top:16px;border-radius:var(--radius-sm);overflow:hidden;border:1px solid var(--line);background:var(--card)}
+.tl-photo img{width:100%;height:180px;object-fit:cover;transition:transform .5s cubic-bezier(.22,1,.36,1)}
+.tl-photo:hover img{transform:scale(1.03)}
+.tl-photo .cap{font-size:12.5px;color:var(--text-2);background:var(--card);padding:8px 14px;border-top:1px solid var(--line)}
+@media(max-width:760px){
+  .timeline{grid-template-columns:86px 20px 1fr;column-gap:12px}
+  .tl-time{font-size:13px}
+}
+.honors{margin-top:52px}
+.honors h3{font-size:15px;font-weight:600;color:var(--text-2);letter-spacing:.04em;margin-bottom:18px}
+.honor-chips{display:flex;flex-wrap:wrap;gap:10px}
+.honor-chips span{font-size:14px;color:var(--text);background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:10px 18px;display:flex;align-items:center;gap:8px;transition:border-color .25s,transform .25s}
+.honor-chips span::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--accent);flex:none}
+.honor-chips span:hover{border-color:rgba(0,113,227,.4);transform:translateY(-2px)}
+
+/* ===== 实习（浅色卡片 + 报告链接） ===== */
+.experience{background:var(--panel)}
+.exp-grid{display:grid;grid-template-columns:1fr 1fr;gap:26px}
+.exp-card{
+  background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+  padding:34px 32px;transition:transform .35s cubic-bezier(.22,1,.36,1),box-shadow .35s;
+  display:flex;flex-direction:column;
+}
+.exp-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-lg)}
+.exp-card .org{font-size:13px;color:var(--accent);font-weight:600;letter-spacing:.03em;display:flex;align-items:center;gap:8px}
+.exp-card .org::before{content:"";width:20px;height:1px;background:var(--accent)}
+.exp-card h3{font-size:23px;font-weight:700;letter-spacing:-.01em;margin-top:10px;line-height:1.3}
+.exp-card .role{font-size:15px;color:var(--text-2);margin-top:4px}
+.exp-card .date{font-size:13px;color:var(--text-3);margin-top:6px;font-variant-numeric:tabular-nums}
+.exp-card ul{list-style:none;margin-top:20px;display:flex;flex-direction:column;gap:13px;flex:1}
+.exp-card li{font-size:14.5px;line-height:1.7;color:var(--text-2);padding-left:20px;position:relative}
+.exp-card li::before{content:"";position:absolute;left:2px;top:10px;width:6px;height:6px;border-radius:2px;background:var(--accent)}
+.exp-card li b{color:var(--text);font-weight:600}
+.exp-metrics{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
+.exp-metrics span{font-size:12.5px;color:var(--text-2);background:var(--panel);border:1px solid var(--line);border-radius:999px;padding:5px 13px;font-variant-numeric:tabular-nums}
+.report-link{margin-top:22px;display:inline-flex;align-items:center;gap:8px;font-size:14px;font-weight:600;color:var(--accent)}
+.report-link svg{width:15px;height:15px;stroke:currentColor;transition:transform .25s}
+.report-link:hover svg{transform:translateX(3px)}
+@media(max-width:900px){.exp-grid{grid-template-columns:1fr}}
+
+/* ===== 项目 ===== */
+.projects{background:var(--bg)}
+.proj-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.proj-card{
+  background:var(--panel);border-radius:var(--radius);border:1px solid var(--line);
+  padding:30px 28px;display:flex;flex-direction:column;position:relative;overflow:hidden;
+  transition:transform .35s cubic-bezier(.22,1,.36,1),box-shadow .35s;
+}
+.proj-card::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent),rgba(0,113,227,.15));opacity:0;transition:opacity .35s}
+.proj-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-lg)}
+.proj-card:hover::before{opacity:1}
+.proj-card .proj-top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.proj-card .award{font-size:12px;font-weight:700;color:#fff;background:var(--accent);border-radius:999px;padding:5px 13px;white-space:nowrap;letter-spacing:.02em}
+.proj-card h3{font-size:18px;font-weight:700;letter-spacing:-.01em;line-height:1.4;margin-top:14px}
+.proj-card .meta{font-size:13px;color:var(--text-2);margin-top:8px;font-variant-numeric:tabular-nums}
+.proj-card ul{list-style:none;margin-top:16px;display:flex;flex-direction:column;gap:10px;flex:1}
+.proj-card li{font-size:14px;line-height:1.65;color:var(--text-2);padding-left:18px;position:relative}
+.proj-card li::before{content:"";position:absolute;left:1px;top:9px;width:5px;height:5px;border-radius:50%;background:var(--accent)}
+.proj-card li b{color:var(--text);font-weight:600}
+.proj-stats{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}
+.proj-stats span{font-size:12px;font-weight:600;color:var(--accent);background:var(--accent-soft);border-radius:8px;padding:5px 11px;font-variant-numeric:tabular-nums}
+@media(max-width:980px){.proj-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:680px){.proj-grid{grid-template-columns:1fr}}
+
+/* ===== 校园经历 ===== */
+.campus{background:var(--panel)}
+.campus-grid{display:grid;grid-template-columns:1fr 1fr;gap:26px;align-items:stretch}
+.campus-card{background:var(--card);border-radius:var(--radius);border:1px solid var(--line);padding:34px 32px;transition:box-shadow .3s,transform .3s}
+.campus-card:hover{box-shadow:var(--shadow-lg)}
+.campus-card h3{font-size:21px;font-weight:700;letter-spacing:-.01em}
+.campus-card .role{font-size:14px;color:var(--accent);font-weight:600;margin-top:4px}
+.campus-card .date{font-size:13px;color:var(--text-3);margin-top:6px;font-variant-numeric:tabular-nums}
+.campus-card ul{list-style:none;margin-top:18px;display:flex;flex-direction:column;gap:14px}
+.campus-card li{font-size:14.5px;line-height:1.7;color:var(--text-2);padding-left:20px;position:relative}
+.campus-card li::before{content:"";position:absolute;left:2px;top:10px;width:6px;height:6px;border-radius:2px;background:var(--accent)}
+.campus-card li b{color:var(--text);font-weight:600}
+@media(max-width:900px){.campus-grid{grid-template-columns:1fr}}
+
+/* ===== 学术会议 ===== */
+.conferences{background:var(--bg)}
+.conf-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:26px;align-items:stretch}
+.conf-card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;display:flex;flex-direction:column;transition:box-shadow .3s,transform .35s}
+.conf-card:hover{box-shadow:var(--shadow-lg);transform:translateY(-4px)}
+.conf-photo{width:100%;height:240px;object-fit:cover;object-position:center}
+.conf-body{padding:26px 28px;display:flex;flex-direction:column;flex:1}
+.conf-body h3{font-size:18px;font-weight:700;letter-spacing:-.01em;line-height:1.45}
+.conf-body .meta{font-size:13px;color:var(--text-2);margin-top:8px}
+.conf-imgs{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:22px}
+.conf-imgs img{width:100%;height:150px;object-fit:cover;border-radius:var(--radius-sm);border:1px solid var(--line);transition:transform .4s}
+.conf-imgs img:hover{transform:scale(1.02)}
+@media(max-width:900px){.conf-grid{grid-template-columns:1fr}}
+
+/* ===== 技能 ===== */
+.skills{background:var(--panel)}
+.skills-card{background:var(--card);border-radius:var(--radius);border:1px solid var(--line);padding:34px 40px}
+.skills-card h3{font-size:15px;font-weight:600;color:var(--text-2);letter-spacing:.04em;margin:26px 0 14px}
+.skills-card h3:first-child{margin-top:0}
+.skill-chips{display:flex;flex-wrap:wrap;gap:9px}
+.skill-chips span{font-size:14px;color:var(--text);background:var(--panel);border:1px solid var(--line);border-radius:999px;padding:8px 16px;transition:all .25s;font-variant-numeric:tabular-nums}
+.skill-chips span:hover{border-color:rgba(0,113,227,.45);color:var(--accent);transform:translateY(-2px)}
+
+/* ===== Footer ===== */
+.footer{background:var(--bg);color:var(--text-2);padding:72px 0 40px;border-top:1px solid var(--line)}
+.footer-inner{display:grid;grid-template-columns:1.2fr 1fr;gap:48px;padding-bottom:40px;border-bottom:1px solid var(--line);margin-bottom:30px}
+.footer h3{color:var(--text);font-size:20px;font-weight:700;margin-bottom:10px}
+.footer .desc{font-size:14.5px;line-height:1.7;max-width:420px}
+.footer .contact{display:flex;flex-direction:column;gap:14px;justify-content:center}
+.footer .contact a{display:flex;align-items:center;gap:12px;font-size:15px;color:var(--text-2);transition:color .25s}
+.footer .contact a:hover{color:var(--accent)}
+.footer .contact svg{width:18px;height:18px;stroke:var(--accent);flex:none}
+.footer .bottom{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:12.5px;color:var(--text-3)}
+@media(max-width:760px){.footer-inner{grid-template-columns:1fr;gap:32px}}
+
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+</style>
+</head>
+<body>
+<!-- ===== 视图：导航 ===== -->
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <a class="nav-logo" href="#top" aria-label="回到顶部"><span class="dot"></span>付林晓</a>
+    <button class="nav-burger" id="burger" aria-label="打开菜单" aria-expanded="false"><span></span><span></span><span></span></button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#about">关于我</a></li>
+      <li><a href="#education">教育</a></li>
+      <li><a href="#experience">实习</a></li>
+      <li><a href="#projects">项目</a></li>
+      <li><a href="#campus">校园</a></li>
+      <li><a href="#conferences">会议</a></li>
+      <li><a href="#skills">技能</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ===== 视图：Hero ===== -->
+<header class="hero" id="top">
+  <div class="hero-bg">
+    <div class="grid"></div>
+    <div class="glow glow-1"></div>
+    <div class="glow glow-2"></div>
+  </div>
+  <div class="wrap hero-inner">
+    <div class="hero-copy">
+      <div class="hero-kicker">Actuarial · Finance · Data</div>
+      <h1>付林晓</h1>
+      <div class="hero-tags">
+        <span>复旦大学经济学院 · 硕士</span>
+        <span>对外经济贸易大学 · 本科</span>
+        <span>金融数据分析</span>
+      </div>
+      <p class="hero-desc">精算与金融交叉背景，具备扎实的数据分析与计量经济学训练，专注运用数据与实证方法理解和解决金融经济领域的实际问题。</p>
+      <div class="hero-cta">
+        <a class="btn btn-primary" href="#experience">查看经历</a>
+        <a class="btn btn-ghost" href="#projects">我的研究</a>
+      </div>
+      <div class="hero-contact">
+        <a href="mailto:26210680367@m.fudan.edu.cn">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="m3 7 9 6 9-6"/></svg>
+          26210680367@m.fudan.edu.cn
+        </a>
+        <a href="tel:19804342699">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 2 .7 2.9a2 2 0 0 1-.4 2.1L8.1 10a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.9.6 2.9.7a2 2 0 0 1 1.6 2Z"/></svg>
+          198-0434-2699
+        </a>
+      </div>
+    </div>
+    <div class="hero-portrait">
+      <div class="frame"><img src="assets/portrait.jpg" alt="付林晓证件照"></div>
+      <div class="ring"></div>
+    </div>
+  </div>
+</header>
+
+<!-- ===== 视图：关键数字 ===== -->
+<section class="stats" aria-label="关键数据">
+  <div class="wrap stats-grid">
+    <div class="stat reveal"><div class="num">3.86<small>/4.0</small></div><div class="lbl">本科 GPA · 前 2%</div></div>
+    <div class="stat reveal"><div class="num">3<small>/186</small></div><div class="lbl">专业排名</div></div>
+    <div class="stat reveal"><div class="num">2<small>段</small></div><div class="lbl">头部机构实习</div></div>
+    <div class="stat reveal"><div class="num">3<small>项</small></div><div class="lbl">实践项目经历</div></div>
+  </div>
+</section>
+
+<!-- ===== 视图：关于 ===== -->
+<section class="section about" id="about">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="section-eyebrow">About</div>
+      <h2 class="section-title">个人简介</h2>
+    </div>
+    <div class="about-grid">
+      <div class="reveal">
+        <p>付林晓，复旦大学经济学院研究生，本科毕业于对外经济贸易大学。具备保险精算、金融工程与计量经济学等交叉领域的专业训练，关注以数据分析和计量方法解决金融与经济问题。</p>
+        <p>实习期间，曾在国网能源研究院互联网研究所担任助理研究员，基于 IEA、World Bank、Ember 等国际数据库构建跨国能源面板数据，并参与年度研究报告的撰写；曾在银河证券投资银行部金融债组，使用 Wind、iFind 数据库参与债券承做与尽职调查，围绕发行人经营状况、财务表现及信用风险开展分析。相关实践积累了从数据处理、定量分析到行业研究与报告撰写的完整经验。</p>
+        <p>研究兴趣主要集中于金融与宏观经济的交叉领域，关注风险管理、资产配置及金融市场等议题。熟练使用 Python、R、Stata 进行数据清洗、统计分析、计量建模与实证研究，注重将数据分析与经济金融问题相结合。</p>
+      </div>
+      <aside class="about-card reveal">
+        <h3>基本信息</h3>
+        <div class="row"><span class="k">硕士</span><span class="v">复旦大学（推荐免试）</span></div>
+        <div class="row"><span class="k">本科</span><span class="v">对外经济贸易大学</span></div>
+        <div class="row"><span class="k">方向</span><span class="v">金融 · 数据分析</span></div>
+        <div class="row"><span class="k">语言</span><span class="v">中文 · 英语（雅思 6.5）</span></div>
+        <div class="row"><span class="k">邮箱</span><span class="v">26210680367@m.fudan.edu.cn</span></div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 视图：教育经历 ===== -->
+<section class="section education" id="education">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="section-eyebrow">Education</div>
+      <h2 class="section-title">教育经历</h2>
+    </div>
+
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-time">2026.09 – 2028.06</div>
+        <div class="tl-axis"><span class="tl-dot"></span></div>
+        <div class="tl-card">
+          <h3>复旦大学 · 经济学院</h3>
+          <div class="sub">资产评估 · 推荐免试研究生</div>
+          <div class="meta">硕士研究生（在读）</div>
+          <div class="tags"><span>金融衍生工具</span><span>公司金融</span><span>财务报表分析</span><span>经济金融法律</span><span>数量分析方法</span></div>
+
+          <div class="tl-photo">
+            <img src="assets/school-fudan.jpg" alt="复旦大学校门" style="width:100%; height:auto; object-fit:contain; display:block;">
+            <div class="cap">复旦大学 · 邯郸路正门</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-time">2022.09 – 2026.06</div>
+        <div class="tl-axis"><span class="tl-dot"></span></div>
+        <div class="tl-card">
+          <h3>对外经济贸易大学 · 保险学院</h3>
+          <div class="sub">精算学 · 本科</div>
+          <div class="meta">GPA 3.86/4.0 · 专业排名 3/186（前 2%）</div>
+          <div class="tags"><span>金融数学</span><span>随机数学方法</span><span>精算数学</span><span>公司理财</span><span>货币银行学</span><span>金融经济学</span></div>
+
+          <div class="tl-photo">
+            <img src="assets/school-uibe.jpg" alt="对外经济贸易大学校门" style="width:100%; height:auto; object-fit:contain; display:block;">
+            <div class="cap">对外经济贸易大学 · 诚信楼与校名石</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="honors reveal">
+      <h3>荣誉奖项</h3>
+      <div class="honor-chips">
+        <span>全国大学生电子商务“三创赛”一等奖（前 5%）</span>
+        <span>全国大学生统计建模大赛二等奖（前 10%）</span>
+        <span>美国大学生数学建模竞赛 H 奖</span>
+        <span>校级综合奖学金（前 5%）</span>
+        <span>优秀学生干部（前 10%）</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 视图：实习经历 ===== -->
+<section class="section experience" id="experience">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="section-eyebrow">Experience</div>
+      <h2 class="section-title">实习经历</h2>
+      <p class="section-sub">两段头部机构实践，从能源数据研究到投行承做尽调，积累了从数据处理、定量分析到行业研究与报告撰写的完整经验。</p>
+    </div>
+    <div class="exp-grid">
+      <article class="exp-card reveal">
+        <div class="org">数据分析 · 案例调研 · 政策研究</div>
+        <h3>国网能源研究院有限公司</h3>
+        <div class="role">互联网研究所 · 助理研究员</div>
+        <div class="date">2025.10 – 2026.01</div>
+        <ul>
+          <li><b>报告撰写：</b>基于 IEA、Ember、<b>Energy Institute、World Bank</b> 数据库构建覆盖 <b>15 年、14 国</b>平均水平的跨国面板数据库，量化能源消费量、脱碳进度与增长敏感度，形成 <b>137 页</b>年度专题报告。</li>
+          <li><b>案例研究：</b>参与国家级零碳园区案例背调，从产业定位、资源禀赋等 10 个维度梳理覆盖 <b>113 省市、18 个园区</b>的案例库，归纳“源网荷储一体化”等典型零碳模式，支撑政策研究引用。</li>
+          <li><b>数据分析：</b>负责核心数据动态更新与校核，完成 <b>74 项核心指标、超 100 个地区</b>数据及相关图表的更新与一致性核验，保障报告时效性与准确性。</li>
+        </ul>
+        <div class="exp-metrics"><span>137 页报告</span><span>15 年 × 14 国面板</span><span>18 个零碳园区</span><span>74 项指标</span></div>
+        <a class="report-link" href="assets/reports/energy-transition-2025.pdf" target="_blank" rel="noopener">查看能源报告
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </article>
+      <article class="exp-card reveal">
+        <div class="org">债券承做 · 尽职调查 · 研报撰写</div>
+        <h3>中国银河证券股份有限公司</h3>
+        <div class="role">投资银行部 · 金融债组实习生</div>
+        <div class="date">2024.06 – 2024.09</div>
+        <ul>
+          <li><b>债券承做：</b>参与 5 家银行债券发行，梳理发行人财务状况、资本管理及风险因素，补充 <b>57 处</b>数据注释，参与撰写 <b>143 页</b>二级资本债募集说明书。</li>
+          <li><b>尽职调查：</b>参与 <b>20+ </b>支金融债尽调与内核答复，提取资本充足率、不良贷款率等 20+ 项指标，搭建可比银行对标模型，量化评估发行人经营与信用风险。</li>
+          <li><b>研报撰写：</b>基于 <b>Wind、iFinD </b>搭建债市数据分析库，整合发行规模、收益率曲线、信用利差等 20+ 项指标，撰写 <b>30+ 页</b>债市周报。</li>
+        </ul>
+        <div class="exp-metrics"><span>5 家银行发行</span><span>20+ 支金融债尽调</span><span>143 页募集说明书</span><span>30+ 页周报</span></div>
+        <a class="report-link" href="assets/reports/weekly-bond.pdf" target="_blank" rel="noopener">查看债市周报
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 视图：项目经历 ===== -->
+<section class="section projects" id="projects">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="section-eyebrow">Research & Projects</div>
+      <h2 class="section-title">项目与研究</h2>
+      <p class="section-sub">从死亡率预测到政策评估，每一项研究都以真实数据为起点，以可复现的实证方法收尾。</p>
+    </div>
+    <div class="proj-grid">
+      <article class="proj-card reveal">
+        <div class="proj-top"><span class="proj-type">统计建模</span><span class="award">全国二等奖</span></div>
+        <h3>跨国死亡率预测框架</h3>
+        <div class="meta">全国大学生统计建模大赛 · 负责人 · 2025.02 – 2025.04</div>
+        <ul>
+          <li>清洗各国死亡率数据 <b>5819 条</b>及保险、医疗卫生等 6 项指标，利用 MMD 与可迁移性度量评估源域数据质量并差异化加权，实现跨国数据有效迁移。</li>
+          <li>基于 <b>Python + XGBoost </b>构建预测框架，结合 SHAP 量化特征贡献度，<b>MAE 达 0.0037</b>，撰写论文 38 页。</li>
+        </ul>
+        <div class="proj-stats"><span>XGBoost + SHAP</span><span>多源域模型</span>></div>
+        <a class="report-link" href="assets/reports/mortality-xgboost.pdf" target="_blank" rel="noopener">查看论文
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </article>
+      <article class="proj-card reveal">
+        <div class="proj-top"><span class="proj-type">实证研究</span><span class="award">学术峰会三等奖</span></div>
+        <h3>离婚财产分割制度如何影响购房需求-基于 CFPS 的双重差分分析 </h3>
+        <div class="meta"> 第一作者 · 2024.11 – 2025.03</div>
+        <ul>
+          <li>提取 2010–2016 年家庭面板数据 <b>13.4 万+ 条</b>，经匹配与清洗得到有效样本 <b>10,650 条</b>。</li>
+          <li>运用 Stata 构建<b>双重差分模型</b>，引入平行趋势、安慰剂、异质性与稳健性检验，撰写论文 34 页，获<b>第四届“财经中国”学术峰会青年论坛三等奖</b>。</li>
+        </ul>
+        <div class="proj-stats"><span>10,650 有效样本</span><span>DID模型</span></div>
+        <a class="report-link" href="assets/reports/divorce-house-cfps.pdf" target="_blank" rel="noopener">查看论文
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </article>
+      <article class="proj-card reveal">
+        <div class="proj-top"><span class="proj-type">实践调研</span><span class="award">校级实践一等奖</span></div>
+        <h3>保险助力农业高质量发展调研</h3>
+        <div class="meta">实地调研项目 · 队长 · 2024.12 – 2025.01</div>
+        <ul>
+          <li>实地走访中国人保江苏分公司、紫金财险等 <b>5 家保险机构</b>，开展 <b>10+ 场</b>访谈，覆盖承保、理赔、产品创新与风险管理。</li>
+          <li>梳理<b>“政府 + 保险公司 + 农户”</b>三方共担模式，分析险种财政补贴差异与市场供需，撰写 38 页专题报告。</li>
+        </ul>
+        <div class="proj-stats"><span>5 家机构</span><span>10场访谈</span><span>38 页报告</span></div>
+        <a class="report-link" href="assets/reports/insurance-agri.pdf" target="_blank" rel="noopener">查看报告
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 视图：校园经历 ===== -->
+<section class="section campus" id="campus">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="section-eyebrow">Campus</div>
+      <h2 class="section-title">校园经历</h2>
+    </div>
+    <div class="campus-grid">
+      <article class="campus-card reveal">
+        <h3>风险管理与保险学社</h3>
+        <div class="role">社长</div>
+        <div class="date">2024.09 – 2026.06</div>
+        <ul>
+          <li><b>内容运营：</b>统筹学社新媒体账号的内容策划与日常运营，累计发布专业推文 <b>70+ 篇</b>，涵盖课程笔记、专业知识、行业热点，持续提供专业学习与行业资讯服务。</li>
+          <li><b>学业服务：</b>围绕课程学习与职业发展需求，累计组织 <b>20+ 场</b>复习讲座、经验分享及考证交流活动，搭建常态化的经验交流与信息传递平台，帮助在校生获取学习与职业发展信息。。</li>
+          <li><b>活动策划：</b>对接<b> CAS、SOA </b>等国内外保险精算行业专业资源，统筹活动策划与现场组织，累计落地 <b>10+ 场</b>专业交流活动，覆盖学生 <b>1000+ 人次</b>。</li>
+        </ul>
+      </article>
+      <article class="campus-card reveal">
+        <h3>学生全面发展咨询中心</h3>
+        <div class="role">学业助理 · 课程助理</div>
+        <div class="date">2024.09 – 2025.06</div>
+        <ul>
+          <li><b>社群运营：</b>负责学业交流社群的日常维护与答疑，累计服务 <b>200+ 名学生</b>，及时回应课程学习及备考过程中的共性问题，促进学习经验与就业信息共享。</li>
+          <li><b>课程教学：</b>承担线下课程知识点讲解与习题辅导，围绕重点难点开展 <b>20+ 次</b>专题授课，累计覆盖 <b>500+ 人次</b>；整理 <b>1000+ 道</b>高频习题与典型错题。</li>
+          <li><b>专题讲座：</b>统筹期末复习讲座、考前答疑及作业批改，累计批改 <b>200+ 份</b>作业 / 习题、开展 <b>10+ 场</b>期末辅导，针对高频易错知识点集中讲解与反馈。</li>
+        </ul>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 视图：学术会议 ===== -->
+<section class="section conferences" id="conferences">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="section-eyebrow">Academic Events</div>
+      <h2 class="section-title">学术会议</h2>
+    </div>
+
+    <div class="conf-grid">
+
+      <article class="conf-card reveal">
+        <div class="conf-body">
+          <h3>全国财经类院校大学生第四届“财经中国”学术峰会青年论坛</h3>
+          <div class="meta">中央财经大学主办 · 2025.05</div>
+
+          <img class="conf-photo" src="assets/conf-caijing.png" alt="财经中国学术峰会现场" style="width:500px; height:260px; object-fit:cover;aspect-ratio: 16 / 9">
+
+          <a class="report-link" style="margin-top:auto;padding-top:22px" href="https://weixin.qq.com/sph/AKttuj3Pzd" target="_blank" rel="noopener">
+            观看活动视频
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 12h14M13 6l6 6-6 6"/>
+            </svg>
+          </a>
+        </div>
+      </article>
+
+      <article class="conf-card reveal">
+        <div class="conf-body">
+          <h3>2024 年国际青年领袖金融高峰会</h3>
+          <div class="meta">上海交通大学高级金融学院（SAIF）主办 · 2024.12</div>
+          
+          <img class="conf-photo" src="assets/conf-finance-2.jpg" alt="金融峰会全体合影" style="width:500px; height:260px; object-fit:cover;aspect-ratio: 16 / 9">
+
+          <a class="report-link" style="margin-top:auto;padding-top:22px" href="https://mp.weixin.qq.com/s/yskRsGuug1D8PlgRvF8XNg" target="_blank" rel="noopener">
+            查看会议推送
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 12h14M13 6l6 6-6 6"/>
+            </svg>
+          </a>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===== 视图：技能 ===== -->
+<section class="section skills" id="skills">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="section-eyebrow">Skills</div>
+      <h2 class="section-title">技能与语言</h2>
+    </div>
+    <div class="skills-card reveal">
+      <h3>语言能力</h3>
+      <div class="skill-chips">
+        <span>CET-4 · 605</span><span>CET-6 · 545</span><span>雅思 6.5</span><span>英文文献阅读与日常交流</span>
+      </div>
+      <h3>数据分析与工具</h3>
+      <div class="skill-chips">
+        <span>Python</span><span>R</span><span>Stata</span><span>SPSS</span><span>MS Office</span><span>Dreamweaver</span><span>Flash</span>
+      </div>
+      <h3>兴趣爱好</h3>
+      <div class="skill-chips">
+        <span>乒乓球</span><span>羽毛球</span><span>读书</span><span>有氧运动</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 视图：Footer ===== -->
+<footer class="footer" id="contact">
+  <div class="wrap">
+    <div class="footer-inner">
+      <div>
+        <h3>保持联系</h3>
+        <p class="desc">目前关注金融、保险、数据分析等方向的实习与研究机会，期待在实际业务中发挥数据分析与金融研究能力，也希望与您的团队共同学习、成长。如有合适的机会，欢迎与我联系。</p>
+      </div>
+      <div class="contact">
+        <a href="mailto:26210680367@m.fudan.edu.cn">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="m3 7 9 6 9-6"/></svg>
+          26210680367@m.fudan.edu.cn
+        </a>
+        <a href="tel:19804342699">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 2 .7 2.9a2 2 0 0 1-.4 2.1L8.1 10a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.9.6 2.9.7a2 2 0 0 1 1.6 2Z"/></svg>
+          198-0434-2699
+        </a>
+      </div>
+    </div>
+    <div class="bottom">
+      <span>©  付林晓 · 精算 · 金融 · 数据分析</span>
+      <span>复旦大学经济学院 · 对外经济贸易大学保险学院</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  'use strict';
+  var nav = document.getElementById('nav');
+  var burger = document.getElementById('burger');
+  var navLinks = document.getElementById('navLinks');
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  burger.addEventListener('click', function(){
+    var open = nav.classList.toggle('open');
+    burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+  navLinks.addEventListener('click', function(e){
+    if (e.target.tagName === 'A' && nav.classList.contains('open')) {
+      nav.classList.remove('open');
+      burger.setAttribute('aria-expanded', 'false');
+    }
+  });
+
+  var reveals = document.querySelectorAll('.reveal');
+  if (reduceMotion || !('IntersectionObserver' in window)) {
+    reveals.forEach(function(el){ el.classList.add('in'); });
+  } else {
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
+    reveals.forEach(function(el){ io.observe(el); });
+  }
+
+  var ticking = false;
+  window.addEventListener('scroll', function(){
+    if (!ticking) {
+      window.requestAnimationFrame(function(){
+        nav.style.background = window.scrollY > 24
+          ? 'rgba(255,255,255,.92)'
+          : 'rgba(255,255,255,.78)';
+        ticking = false;
+      });
+      ticking = true;
+    }
+  }, { passive: true });
+})();
+</script>
+</body>
+</html>
